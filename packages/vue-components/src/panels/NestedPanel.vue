@@ -37,9 +37,10 @@
       :id="panelId"
       class="anchor"
     ></span>
-    <div :class="['card', { 'expandable-card': isExpandableCard }, borderType]">
+    <div :class="['card', { 'expandable-card': isExpandableCard, 'card-seamless' : isSeamless }, borderType]">
       <div
-        :class="['card-header',{'header-toggle':isExpandableCard}, cardType, borderType]"
+        :class="['card-header', {'header-toggle':isExpandableCard,'card-header-seamless' : isSeamless},
+        cardType, borderType]"
         @click.prevent.stop="isExpandableCard && toggle()"
       >
         <div class="caret-wrapper">
@@ -50,7 +51,7 @@
         </div>
         <div
           ref="headerWrapper"
-          :class="['header-wrapper card-title', cardType,
+          :class="[{'header-wrapper-seamless': isSeamless}, 'header-wrapper card-title', cardType,
                    {'text-white':!isLightBg, 'header-transparent':!shouldShowHeader}]"
         >
           <slot name="header"></slot>
@@ -229,6 +230,11 @@ export default {
 </style>
 
 <style>
+    .card-seamless,
+    .card-header-seamless {
+        background-color: inherit !important;
+    }
+
     .card-heading {
         width: 100%;
     }
@@ -261,6 +267,10 @@ export default {
         display: inline-block;
         width: calc(100% - 32px - 96px);
         transition: 0.5s opacity;
+    }
+
+    .header-wrapper-seamless {
+        background-color: inherit !important;
     }
 
     .header-transparent {
